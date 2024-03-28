@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import br.com.redemob.aplicacao.exception.NotFoundException;
 import br.com.redemob.aplicacao.exception.RegistroExisteException;
 import br.com.redemob.dominio.modelo.Cliente;
 import br.com.redemob.dominio.modelo.Solicitacao;
@@ -42,7 +43,10 @@ public class ClienteService {
 	
 	@Transactional
 	public Cliente consultarPorCpfEsenha(String cpf, String senha) {
-		return this.clienteRepositorio.findByCpfAndSenha(cpf, senha);
+		var cliente = this.clienteRepositorio.findByCpfAndSenha(cpf, senha);
+		if(cliente == null)
+			throw new NotFoundException("Cliente não encontrado");
+		return cliente;
 	}
 	
 }
