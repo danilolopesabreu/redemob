@@ -31,7 +31,7 @@ public class ClienteResource {
 	@PostMapping
 	public ClienteDto cadastrarCliente(@RequestBody ClienteDto clienteDto) {
 		Cliente cliente = this.clienteMapper.clienteDtoToCliente(clienteDto);
-		return this.clienteMapper.clienteToClienteDto(this.clienteService.create(cliente));
+		return this.clienteMapper.clienteToClienteDto(this.clienteService.cadastrar(cliente));
 	}
 	
 	@GetMapping

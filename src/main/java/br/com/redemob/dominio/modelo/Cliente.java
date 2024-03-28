@@ -183,4 +183,9 @@ public class Cliente {
 		return Objects.equals(cpf, other.cpf);
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nomeCompletoTitular=" + nomeCompletoTitular + ", cpf=" + cpf + "]";
+	}
+	
 }

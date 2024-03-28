@@ -17,19 +17,14 @@ public class AppStartupRunner implements ApplicationRunner {
     private static final Logger LOG =
       LoggerFactory.getLogger(AppStartupRunner.class);
 
-    public static int counter;
-    
     @Autowired
     private ClienteService clienteService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         LOG.info("Criando admin");
-        
         Cliente cliente = new Cliente("99999999999", "12345678", "Administrador", "", new Date(), "", "", "", 1);
-        var novoAdmin = this.clienteService.create(cliente);
+        var novoAdmin = this.clienteService.cadastrar(cliente);
         LOG.info(novoAdmin.toString());
-        
-        counter++;
     }
 }

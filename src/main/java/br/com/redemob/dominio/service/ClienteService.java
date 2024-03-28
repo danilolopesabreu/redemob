@@ -20,7 +20,7 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
 	
-	public Cliente create(Cliente cliente) {
+	public Cliente cadastrar(Cliente cliente) {
 		cliente.setSolicitacoes(Arrays.asList(new Solicitacao(cliente)));
 		Cliente novoCliente;
 		try {
