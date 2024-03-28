@@ -8,5 +8,5 @@
 
 ## 2. Usuário Administrador
 * Ele é criado no momento do startup, o login é um cpf especifico
-* CPF: 99999999999
+* CPF: 999.999.999-99
 * Senha: 12345678
