@@ -33,4 +33,6 @@ public interface SolicitacaoRepositorio extends JpaRepository<Solicitacao, Long>
 			@Param(value = "dataAvaliacao") Date dataAvaliacao,
 			@Param(value = "aprovado") Boolean aprovado);
 	
+	public Integer countByClienteIdAndAprovadoIs(Long clienteId, Boolean aprovado);
+	
 }

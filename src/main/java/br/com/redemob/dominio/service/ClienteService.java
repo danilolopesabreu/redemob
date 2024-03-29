@@ -31,6 +31,11 @@ public class ClienteService {
 		return novoCliente;
 	}
 	
+	public Cliente consultarPorId(Long id) {
+		return this.clienteRepositorio.findById(id).orElseThrow(
+				() -> new NotFoundException("Cliente não encontrado"));
+	}
+	
 	@Transactional
 	public List<Cliente> listarClientes(){
 		return this.clienteRepositorio.listarClientes();
