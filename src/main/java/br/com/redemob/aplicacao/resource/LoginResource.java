@@ -1,6 +1,7 @@
 package br.com.redemob.aplicacao.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import br.com.redemob.aplicacao.dto.ClienteDto;
 import br.com.redemob.aplicacao.mapper.ClienteMapper;
 import br.com.redemob.dominio.modelo.Login;
 import br.com.redemob.dominio.service.ClienteService;
+import jakarta.validation.Valid;
 
 @CrossOrigin()
 @RestController
@@ -24,7 +26,7 @@ public class LoginResource {
 	private ClienteService clienteService;
 	
 	@PostMapping("/login")
-	public ClienteDto login(@RequestBody Login login) {
+	public ClienteDto login(@Valid @RequestBody Login login) {
 		return this.clienteMapper.clienteToClienteDto(
 				this.clienteService.consultarPorCpfEsenha(login.getCpf(), login.getSenha()));
 	}
