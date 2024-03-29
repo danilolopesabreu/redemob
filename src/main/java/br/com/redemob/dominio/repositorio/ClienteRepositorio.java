@@ -32,4 +32,11 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long>{
 		)
 	public Optional<Cliente> findByCpfAndSenha(String cpf, String senha);
 	
+	@Query(
+			"SELECT cliente FROM br.com.redemob.dominio.modelo.Cliente cliente "+
+			"JOIN FETCH cliente.solicitacoes solicitacoes "+
+			"WHERE cliente.id = :id"
+		)
+	public Optional<Cliente> findById(Long id);
+	
 }

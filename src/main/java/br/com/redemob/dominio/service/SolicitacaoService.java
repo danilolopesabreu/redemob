@@ -2,6 +2,7 @@ package br.com.redemob.dominio.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,23 +25,36 @@ public class SolicitacaoService {
 		return this.solicitacaoRepositorio.save(solicitacao);
 	}
 	
+	private Integer contarSolicitacoesPelaSituacao(List<Solicitacao> solicitacoes, Boolean situacao) {
+		AtomicInteger atomicInteger = new AtomicInteger(0);
+		
+		solicitacoes.stream()
+					.filter(solicitacao -> solicitacao.getAprovado() == situacao)
+					.forEach(solicitacao -> {
+						atomicInteger.getAndIncrement();
+					});
+		
+		return atomicInteger.get();
+	}
+	
 	public Solicitacao novaSolicitacaoCliente(Long idCliente) {
 		
-		this.clienteService.consultarPorId(idCliente);//verifica se cliente existe
+		var cliente = this.clienteService.consultarPorId(idCliente);
+		var solicitacoes = cliente.getSolicitacoes();
 		
-		Integer qtdAguardando = this.solicitacaoRepositorio.countByClienteIdAndAprovadoIs(idCliente, null);
+		Integer qtdSolicitacoes = this.contarSolicitacoesPelaSituacao(solicitacoes, null);
 		
-		if(qtdAguardando >= 1)
+		if(qtdSolicitacoes >= 1)
 			throw new RuntimeException("Cliente com solicitação Aberta.");
 		
-		Integer qtdReprovacao = this.solicitacaoRepositorio.countByClienteIdAndAprovadoIs(idCliente, false);
+		qtdSolicitacoes = this.contarSolicitacoesPelaSituacao(solicitacoes, false);
 		
-		if(qtdReprovacao >= 2)
+		if(qtdSolicitacoes >= 2)
 			throw new RuntimeException("Cliente com duas solicitações Recusadas.");
 		
-		Integer qtdAprovacao = this.solicitacaoRepositorio.countByClienteIdAndAprovadoIs(idCliente, true);
+		qtdSolicitacoes = this.contarSolicitacoesPelaSituacao(solicitacoes, true);
 		
-		if(qtdAprovacao >= 1)
+		if(qtdSolicitacoes >= 1)
 			throw new RuntimeException("Cliente já possui solicitação Aprovada.");
 		
 		Solicitacao solicitacao = new Solicitacao(new Cliente(idCliente));
