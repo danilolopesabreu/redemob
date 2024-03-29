@@ -1,4 +1,5 @@
 # RedeMob BFF
+* Versão avaliada está na TAG v1.0.0
 
 ## 1. Informações de Acesso a Banco
 * url: jdbc:postgresql://localhost:5432/rocket
