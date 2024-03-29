@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.redemob.aplicacao.exception.NegocioException;
 import br.com.redemob.dominio.modelo.Cliente;
 import br.com.redemob.dominio.modelo.Solicitacao;
 import br.com.redemob.dominio.repositorio.SolicitacaoRepositorio;
@@ -45,17 +46,17 @@ public class SolicitacaoService {
 		Integer qtdSolicitacoes = this.contarSolicitacoesPelaSituacao(solicitacoes, null);
 		
 		if(qtdSolicitacoes >= 1)
-			throw new RuntimeException("Cliente com solicitação Aberta.");
+			throw new NegocioException("Cliente com solicitação Aberta.");
 		
 		qtdSolicitacoes = this.contarSolicitacoesPelaSituacao(solicitacoes, false);
 		
 		if(qtdSolicitacoes >= 2)
-			throw new RuntimeException("Cliente com duas solicitações Recusadas.");
+			throw new NegocioException("Cliente com duas solicitações Recusadas.");
 		
 		qtdSolicitacoes = this.contarSolicitacoesPelaSituacao(solicitacoes, true);
 		
 		if(qtdSolicitacoes >= 1)
-			throw new RuntimeException("Cliente já possui solicitação Aprovada.");
+			throw new NegocioException("Cliente já possui solicitação Aprovada.");
 		
 		Solicitacao solicitacao = new Solicitacao(new Cliente(idCliente));
 		

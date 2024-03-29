@@ -52,6 +52,20 @@ public class CustomExceptionHandler {
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(NegocioException.class)
+	public final ExceptionResponse handleNegocioExceptions(
+			Exception ex, WebRequest request) {
+		
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				new Date(),
+				ex.getMessage(),
+				request.getDescription(false));
+		
+		return exceptionResponse;
+	}
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
