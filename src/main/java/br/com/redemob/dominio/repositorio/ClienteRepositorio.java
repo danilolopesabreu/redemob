@@ -1,6 +1,7 @@
 package br.com.redemob.dominio.repositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,6 +30,6 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long>{
 			"JOIN FETCH cliente.solicitacoes solicitacoes "+
 			"WHERE cliente.cpf = :cpf AND cliente.senha = :senha"
 		)
-	public Cliente findByCpfAndSenha(String cpf, String senha);
+	public Optional<Cliente> findByCpfAndSenha(String cpf, String senha);
 	
 }

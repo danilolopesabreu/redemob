@@ -43,9 +43,8 @@ public class ClienteService {
 	
 	@Transactional
 	public Cliente consultarPorCpfEsenha(String cpf, String senha) {
-		var cliente = this.clienteRepositorio.findByCpfAndSenha(cpf, senha);
-		if(cliente == null)
-			throw new NotFoundException("Cliente não encontrado");
+		var cliente = this.clienteRepositorio.findByCpfAndSenha(cpf, senha)
+				.orElseThrow(() -> new NotFoundException("Cliente não encontrado"));
 		return cliente;
 	}
 	
