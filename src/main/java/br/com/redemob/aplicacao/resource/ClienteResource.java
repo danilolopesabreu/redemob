@@ -16,6 +16,7 @@ import br.com.redemob.aplicacao.dto.ClienteDto;
 import br.com.redemob.aplicacao.mapper.ClienteMapper;
 import br.com.redemob.dominio.modelo.Cliente;
 import br.com.redemob.dominio.service.ClienteService;
+import jakarta.validation.Valid;
 
 @CrossOrigin()
 @RestController
@@ -29,7 +30,7 @@ public class ClienteResource {
 	private ClienteService clienteService;
 	
 	@PostMapping
-	public ClienteDto cadastrarCliente(@RequestBody ClienteDto clienteDto) {
+	public ClienteDto cadastrarCliente(@Valid @RequestBody ClienteDto clienteDto) {
 		Cliente cliente = this.clienteMapper.clienteDtoToCliente(clienteDto);
 		return this.clienteMapper.clienteToClienteDto(this.clienteService.cadastrar(cliente));
 	}
