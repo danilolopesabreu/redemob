@@ -27,12 +27,6 @@ public class SolicitacaoResource {
 	@Autowired
 	private SolicitacaoMapper solicitacaoMapper;
 	
-	@PostMapping
-	public Solicitacao cadastrarSolicitacao(@RequestBody Solicitacao solicitacao) {
-		this.solicitacaoService.create(solicitacao);
-		return solicitacao;
-	}
-	
 	@PostMapping("/cliente/{id}")
 	public Solicitacao cadastrarNovaSolicitacao(@PathVariable("id") Long idCliente) {
 		return this.solicitacaoService.novaSolicitacaoCliente(idCliente);

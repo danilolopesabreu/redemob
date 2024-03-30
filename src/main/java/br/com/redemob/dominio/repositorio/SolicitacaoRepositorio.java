@@ -16,9 +16,12 @@ import br.com.redemob.dominio.modelo.Solicitacao;
 public interface SolicitacaoRepositorio extends JpaRepository<Solicitacao, Long> {
 
 	@Query(
-		"SELECT solicitacao FROM br.com.redemob.dominio.modelo.Solicitacao solicitacao " +
-		"JOIN FETCH solicitacao.cliente cliente " +
-		"WHERE solicitacao.dataAvaliacao = null"
+		"SELECT new br.com.redemob.dominio.modelo.Solicitacao("
+		+ "cliente.id, cliente.cpf, cliente.nomeCompletoTitular, cliente.nomeCompletoMaeTitular, cliente.dataNascimento, cliente.municipio, "
+		+ "solicitacao.id, solicitacao.dataSolicitacao, solicitacao.dataAvaliacao, solicitacao.aprovado) "
+		+ "FROM br.com.redemob.dominio.modelo.Solicitacao solicitacao " 
+		+ "JOIN  solicitacao.cliente cliente "
+		+ "WHERE solicitacao.dataAvaliacao is null"
 	)
 	public List<Solicitacao> listarSolicitacoesParaVerificacao();
 	

@@ -41,6 +41,27 @@ public class Solicitacao {
 		this.dataSolicitacao = dataSolicitacao;
 	}
 	
+	public Solicitacao(
+			Long idCliente, String cpf, String nomeCompletoTitular, 
+			String nomeCompletoMaeTitular, Date dataNascimento,	int municipio,
+			Long idSolicitacao, Date dataSolicitacao, Date dataAvaliacao, Boolean aprovado) {
+		super();
+		
+		this.cliente = new Cliente(idCliente, cpf, nomeCompletoTitular, nomeCompletoMaeTitular, dataNascimento, municipio);
+		this.id = idSolicitacao;
+		this.dataSolicitacao = dataSolicitacao;
+		this.dataAvaliacao = dataAvaliacao;
+		this.aprovado = aprovado;
+	}
+	
+	public Solicitacao(Long id, Date dataSolicitacao, Date dataAvaliacao, Boolean aprovado) {
+		super();
+		this.id = id;
+		this.dataSolicitacao = dataSolicitacao;
+		this.dataAvaliacao = dataAvaliacao;
+		this.aprovado = aprovado;
+	}
+
 	public Solicitacao(Cliente cliente) {
 		super();
 		this.cliente = cliente;

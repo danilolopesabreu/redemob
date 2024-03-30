@@ -73,6 +73,16 @@ public class Cliente {
 		this.senha = senha;
 		this.municipio = municipio;
 	}
+	
+	public Cliente(Long id, String cpf, String nomeCompletoTitular, String nomeCompletoMaeTitular, Date dataNascimento, int municipio) {
+		super();
+		this.id = id;
+		this.nomeCompletoTitular = nomeCompletoTitular;
+		this.nomeCompletoMaeTitular = nomeCompletoMaeTitular;
+		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
+		this.municipio = municipio;
+	}
 
 	public Cliente(Long idCliente) {
 		this.id = idCliente;
